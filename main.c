@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <sys/stat.h>
 #include <time.h>
+#include <string.h>
 
 int main() {
   printf("Printing out metadata of main.c: \n");
@@ -20,7 +21,12 @@ int main() {
   printf("Last accessed: \n");
   printf("> %s \n", ctime(&metadata.st_atime));
 
-  printf("Raw file permissions: %d \n", metadata.st_mode);
+  char perms[6];
+  sprintf(perms, "%o", metadata.st_mode);
+  printf("Octal file permissions: ");
+  printf("%c", perms[3]);
+  printf("%c", perms[4]);
+  printf("%c \n", perms[5]);
 
   printf("ls -l permissions format for main.c: \n");
   printf("> ");
